@@ -1,0 +1,12 @@
+.DS_Store
+.python-version
+*.ipynb_checkpoints
+*.pyc
+#data/
+npy/
+detect/
+memo/
+#log/
+#model/
+data/4type/
+uploads/
