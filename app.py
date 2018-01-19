@@ -2,7 +2,6 @@ import os
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, session
 from werkzeug import secure_filename
-from skimage.feature import canny
 import matplotlib.pyplot as plt
 import cv2
 import numpy as np
@@ -39,13 +38,9 @@ def augumentation():
     print(url_for('static', filename=request.form['image']))
     im = cv2.imread("." + url_for('static', filename=request.form['image']))
     im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
-    im_edge = canny(im_gray)
-    plt.imshow(im_edge, cmap="gray")
-    plt.axis("off")
+    im_edge = cv2.Canny(im_gray,100,200)
     img_arg_url= "." + url_for('static', filename=request.form['image']).rsplit('.', 1)[0] + "_edge." + request.form['image'].rsplit('.', 1)[1]
-    print(img_arg_url)
-    plt.savefig(img_arg_url)
-
+    cv2.imwrite(img_arg_url,im_edge)
     return render_template('augumentation.html', img_arg_url=img_arg_url)
 
 

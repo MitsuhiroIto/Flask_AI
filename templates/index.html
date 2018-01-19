@@ -7,7 +7,7 @@
 </form>
 
 {% if img_name %}
-<p><img src="{{url_for('static', filename=img_name)}}"></p>
+<p><img src="{{url_for('static', filename=img_name)}}" height="150" ></p>
 <form method="post" action="/augumentation">
 <button type="submit" name = "image" value="{{ img_name }}">前処理</button>
 
