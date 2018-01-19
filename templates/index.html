@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
+
 <form method="post" action="/send" enctype="multipart/form-data">
   <input type="file" id="img_file" name="img_file" class="col-sm-4">
-  <input type="submit" value="送信" class="btn">
-</fomr>
-  {% if img_url %}
-<p><img src="{{ img_url }}"></p>
-<p><button type="button">前処理</button></p>
+  <input type="submit" value="upload" class="btn">
+</form>
+
+{% if img_name %}
+<p><img src="{{url_for('static', filename=img_name)}}"></p>
+<form method="post" action="/augumentation">
+<button type="submit" name = "image" value="{{ img_name }}">前処理</button>
+
   {% endif %}
 {% endblock %}
