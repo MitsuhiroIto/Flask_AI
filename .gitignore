@@ -12,4 +12,5 @@ data/4type/
 uploads/
 static/uploads/*
 memo/
-model/YAD2K
+models/YAD2K
+models/Mask_RCNN

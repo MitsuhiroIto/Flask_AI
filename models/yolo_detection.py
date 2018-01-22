@@ -10,14 +10,14 @@ import numpy as np
 from keras import backend as K
 from keras.models import load_model
 from PIL import Image, ImageDraw, ImageFont
-from model.YAD2K.yad2k.models.keras_yolo import yolo_eval, yolo_head
+from models.YAD2K.yad2k.models.keras_yolo import yolo_eval, yolo_head
 
 import cv2
 
 def yolo_detect(image_url):
-    model_path = 'model/YAD2K/model_data/yolo.h5'
-    anchors_path = 'model/YAD2K/model_data/yolo_anchors.txt'
-    classes_path = 'model/YAD2K/model_data/coco_classes.txt'
+    model_path = 'models/YAD2K/model_data/yolo.h5'
+    anchors_path = 'models/YAD2K/model_data/yolo_anchors.txt'
+    classes_path = 'models/YAD2K/model_data/coco_classes.txt'
     score_threshold = 0.3
     iou_threshold = 0.5
 
@@ -65,6 +65,7 @@ def yolo_detect(image_url):
 
 
     pre_image = cv2.imread("." + image_url)
+    pre_image = cv2.cvtColor(pre_image, cv2.COLOR_BGR2RGB)
     src_image_pil=Image.fromarray(pre_image)
     pil_normalize = src_image_pil.convert('RGB')
     image = pil_normalize
@@ -94,7 +95,7 @@ def yolo_detect(image_url):
         })
 
     font = ImageFont.truetype(
-        font='model/YAD2K/font/FiraMono-Medium.otf',
+        font='models/YAD2K/font/FiraMono-Medium.otf',
         size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
     thickness = (image.size[0] + image.size[1]) // 300
 
@@ -134,7 +135,7 @@ def yolo_detect(image_url):
         del draw
 
     yolo_url= "." + image_url.rsplit('.', 1)[0] + "_yolo." + image_url.rsplit('.', 1)[1]
-    print(yolo_url)
+    #print(yolo_url)
     image.save(yolo_url)
     sess.close()
     return yolo_url
