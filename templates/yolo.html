@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -8,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mitsuhiro Ito</title>
+    <title>YOLO</title>
 
     <!-- Bootstrap core CSS -->
     <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -29,7 +30,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none"></span>
+        <span class="d-block d-lg-none">Start Bootstrap</span>
         <span class="d-none d-lg-block">
           <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="static/img/profile.jpg" alt="">
         </span>
@@ -54,43 +55,32 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#interests">Camera</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
-          </li> -->
         </ul>
       </div>
     </nav>
 
-    <div class="container-fluid p-0">
 
-      <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
-        <div class="my-auto">
-          <h1 class="mb-0">Mitsuhiro
-            <span class="text-primary">Ito</span>
-          </h1>
-          <br></br>
-          <p class="mb-5">このページはWebアプリケーション開発の勉強のために作成されたページです</p>
-          <ul class="list-inline list-social-icons mb-0">
-            <li class="list-inline-item">
-              <a href="https://twitter.com/">
-                <span class="fa-stack fa-lg">
-                  <i class="fa fa-circle fa-stack-2x"></i>
-                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="https://github.com/MitsuhiroIto">
-                <span class="fa-stack fa-lg">
-                  <i class="fa fa-circle fa-stack-2x"></i>
-                  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+<form method="post" action="/yolo_send" enctype="multipart/form-data">
+<input type="file" id="img_file" name="img_file" class="col-sm-4">
+<input type="submit" value="upload" class="btn">
+</form>
 
+{% if warning %}
+<div class="alert alert-warning" role="alert">
+  <strong>Warning!</strong> 許可されていない拡張子、もしくはファイルが指定されてません
+</div>
+    {% endif %}
+
+{% if img_name %}
+<p><img src="{{url_for('static', filename= "uploads/" + img_name)}}" height="150" ></p>
+<form method="post" action="/yolo_detection">
+<button type="submit" name = "image" value="{{ img_name }}">YOLO detection</button>
+    {% endif %}
+
+
+{% if yolo_url %}
+<p><img src="{{ yolo_url }}" height="150"></p>
+    {% endif %}
 
     <!-- Bootstrap core JavaScript -->
     <script src="static/vendor/jquery/jquery.min.js"></script>

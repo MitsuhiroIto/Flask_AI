@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mitsuhiro Ito</title>
+    <title>Augmentation</title>
 
     <!-- Bootstrap core CSS -->
     <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@
             <a class="nav-link js-scroll-trigger" href="/augmentation_initial">For Data Augmentation</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#education">YOLO</a>
+            <a class="nav-link js-scroll-trigger" href="yolo_initial">YOLO</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#skills">Mask-RCNN</a>
@@ -55,16 +55,14 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#interests">Camera</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
-          </li> -->
         </ul>
       </div>
     </nav>
 
-<form method="post" action="/send" enctype="multipart/form-data">
-  <input type="file" id="img_file" name="img_file" class="col-sm-4">
-  <input type="submit" value="upload" class="btn">
+
+<form method="post" action="/augmentation_send" enctype="multipart/form-data">
+<input type="file" id="img_file" name="img_file" class="col-sm-4">
+<input type="submit" value="upload" class="btn">
 </form>
 
 {% if warning %}
@@ -75,7 +73,7 @@
 
 {% if img_name %}
 <p><img src="{{url_for('static', filename= "uploads/" + img_name)}}" height="150" ></p>
-<form method="post" action="/augmentation">
+<form method="post" action="/augmentation_augmentation">
 <button type="submit" name = "image" value="{{ img_name }}">Canny</button>
     {% endif %}
 
@@ -90,8 +88,6 @@
     <!-- Plugin JavaScript -->
     <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for this template -->
-    <script src="js/resume.min.js"></script>
 
   </body>
 

@@ -2,6 +2,7 @@ import os
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, session
 from werkzeug import secure_filename
+from model.yolo_detection import yolo_detect
 import cv2
 import numpy as np
 app = Flask(__name__)
@@ -22,8 +23,8 @@ def index():
 def augmentation_initial():
     return render_template('augmentation.html')
 
-@app.route('/send', methods=['GET', 'POST'])
-def send():
+@app.route('/augmentation_send', methods=['GET', 'POST'])
+def augmentation_send():
     if request.method == 'POST':
         img_file = request.files['img_file']
         if img_file and allowed_file(img_file.filename):
@@ -36,8 +37,8 @@ def send():
         return redirect(url_for('augmentation'))
 
 
-@app.route('/augmentation', methods = ['POST'])
-def augmentation():
+@app.route('/augmentation_augmentation', methods = ['POST'])
+def augmentation_augmentation():
     print(url_for('static', filename= "uploads/" + request.form['image']))
     im = cv2.imread("." + url_for('static', filename= "uploads/" + request.form['image']))
     im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
@@ -45,6 +46,32 @@ def augmentation():
     img_arg_url= "." + url_for('static', filename="uploads/" + request.form['image']).rsplit('.', 1)[0] + "_edge." + request.form['image'].rsplit('.', 1)[1]
     cv2.imwrite(img_arg_url,im_edge)
     return render_template('augmentation.html', img_arg_url=img_arg_url)
+
+
+@app.route('/yolo_initial')
+def yolo_initial():
+    return render_template('yolo.html')
+
+@app.route('/yolo_send', methods=['GET', 'POST'])
+def send():
+    if request.method == 'POST':
+        img_file = request.files['img_file']
+        if img_file and allowed_file(img_file.filename):
+            img_name = secure_filename(img_file.filename)
+            img_file.save(os.path.join(app.config['UPLOAD_FOLDER'], img_name))
+            print(img_name)
+            return render_template('yolo.html', img_name=img_name)
+        else:
+            return render_template('yolo.html', warning="warning")
+    else:
+        return redirect(url_for('yolo'))
+
+@app.route('/yolo_detection', methods = ['POST'])
+def yolo_detectio():
+    image_url = url_for('static', filename= "uploads/" + request.form['image'])
+    print(image_url)
+    yolo_url = yolo_detect(image_url)
+    return render_template('yolo.html', yolo_url=yolo_url)
 
 
 if __name__ == '__main__':
