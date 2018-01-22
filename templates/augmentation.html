@@ -30,7 +30,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none">Start Bootstrap</span>
+        <span class="d-block d-lg-none"></span>
         <span class="d-none d-lg-block">
           <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="static/img/profile.jpg" alt="">
         </span>
@@ -59,11 +59,77 @@
       </div>
     </nav>
 
+<h1 class="text-center">Data Augmentation</h1>
+<p class="text-sm-left bg-dark text-white"><font size="5">　Samples</font></p>
+
+<!-- Equal width cols, same on all screen sizes -->
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <img src="{{url_for('static', filename= "uploads/totoro2.jpg")}}" height="150" >
+    </div>
+    <div class="col-3">
+      <img src="{{url_for('static', filename= "uploads/totoro2_gray.jpg")}}" height="150" >
+    </div>
+    <div class="col-3">
+      <img src="{{url_for('static', filename= "uploads/totoro2_sobelx.jpg")}}" height="150" >
+    </div>
+    <div class="col-3">
+      <img src="{{url_for('static', filename= "uploads/totoro2_sobely.jpg")}}" height="150" >
+    </div>
+</div>
+ <div class="row">
+   <div class="col-3 text-center">
+     <p class="font-weight-bold" ><font size="5" font color= "#000000">Origin</font></p>
+   </div>
+   <div class="col-3 text-center">
+     <p class="font-weight-bold" ><font size="5" font color= "#000000">Gray</font></p>
+   </div>
+   <div class="col-3 text-center">
+     <p class="font-weight-bold" ><font size="5" font color= "#000000">Sobel_y</font></p>
+   </div>
+   <div class="col-3 text-center">
+     <p class="font-weight-bold" ><font size="5" font color= "#000000">Sobel_x</font></p>
+   </div>
+</div>
+
+  <div class="row">
+    <div class="col-3">
+      <img src="{{url_for('static', filename= "uploads/totoro2_canny.jpg")}}" height="150" >
+    </div>
+    <div class="col-3">
+      <img src="{{url_for('static', filename= "uploads/totoro2_rotation.jpg")}}" height="150" >
+    </div>
+    <div class="col-3">
+      <img src="{{url_for('static', filename= "uploads/totoro2_flip.jpg")}}" height="150" >
+    </div>
+    <div class="col-3">
+      <img src="{{url_for('static', filename= "uploads/totoro2_noise.jpg")}}" height="150" >
+    </div>
+</div>
+<div class="row">
+  <div class="col-3 text-center">
+    <p class="font-weight-bold" ><font size="5" font color= "#000000">Canny</font></p>
+  </div>
+  <div class="col-3 text-center">
+    <p class="font-weight-bold" ><font size="5" font color= "#000000">Rotation</font></p>
+  </div>
+  <div class="col-3 text-center">
+    <p class="font-weight-bold" ><font size="5" font color= "#000000">Flip</font></p>
+  </div>
+  <div class="col-3 text-center">
+    <p class="font-weight-bold" ><font size="5" font color= "#000000">Noise</font></p>
+  </div>
+</div>
+</div>
+
+<p class="text-sm-left bg-dark text-white"><font size="5">　Let's try</font></p>
 
 <form method="post" action="/augmentation_send" enctype="multipart/form-data">
 <input type="file" id="img_file" name="img_file" class="col-sm-4">
 <input type="submit" value="upload" class="btn">
 </form>
+
 
 {% if warning %}
 <div class="alert alert-warning" role="alert">
@@ -73,8 +139,42 @@
 
 {% if img_name %}
 <p><img src="{{url_for('static', filename= "uploads/" + img_name)}}" height="150" ></p>
+
+
 <form method="post" action="/augmentation_augmentation">
+<input type="hidden" name="button_name" value="Gray">
+<button type="submit" name = "image" value="{{ img_name }}">Gray</button>
+</form>
+
+<form method="post" action="/augmentation_augmentation">
+<input type="hidden" name="button_name" value="Sobel_y">
+<button type="submit" name = "image" value="{{ img_name }}">Sobel_y</button>
+</form>
+
+<form method="post" action="/augmentation_augmentation">
+<input type="hidden" name="button_name" value="Sobel_x">
+<button type="submit" name = "image" value="{{ img_name }}">Sobel_x</button>
+</form>
+
+<form method="post" action="/augmentation_augmentation">
+<input type="hidden" name="button_name" value="Canny">
 <button type="submit" name = "image" value="{{ img_name }}">Canny</button>
+</form>
+
+<form method="post" action="/augmentation_augmentation">
+<input type="hidden" name="button_name" value="Rotation">
+<button type="submit" name = "image" value="{{ img_name }}">Rotation</button>
+</form>
+
+<form method="post" action="/augmentation_augmentation">
+<input type="hidden" name="button_name" value="Flip">
+<button type="submit" name = "image" value="{{ img_name }}">Flip</button>
+</form>
+
+<form method="post" action="/augmentation_augmentation">
+<input type="hidden" name="button_name" value="Noise">
+<button type="submit" name = "image" value="{{ img_name }}">Add noise</button>
+</form>
     {% endif %}
 
 {% if img_arg_url %}
