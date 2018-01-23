@@ -137,5 +137,5 @@ def yolo_detect(image_url):
     yolo_url= "." + image_url.rsplit('.', 1)[0] + "_yolo." + image_url.rsplit('.', 1)[1]
     #print(yolo_url)
     image.save(yolo_url)
-    sess.close()
+    #sess.close()
     return yolo_url
