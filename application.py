@@ -48,21 +48,18 @@ def augmentation_augmentation():
         im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
         img_arg_url= "." + url_for('static', filename="uploads/" + request.form['image']).rsplit('.', 1)[0] + "_gray." + request.form['image'].rsplit('.', 1)[1]
         cv2.imwrite(img_arg_url,im_gray)
-        return render_template('augmentation.html', img_arg_url=img_arg_url)
 
     if request.form['button_name'] == "Sobel_y":
         im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
         img_arg_url= "." + url_for('static', filename="uploads/" + request.form['image']).rsplit('.', 1)[0] + "_sobely." + request.form['image'].rsplit('.', 1)[1]
         im_sobely = cv2.Sobel(im_gray, cv2.CV_32F, 0, 1, ksize=3)
         cv2.imwrite(img_arg_url,im_sobely)
-        return render_template('augmentation.html', img_arg_url=img_arg_url)
 
     if request.form['button_name'] == "Sobel_x":
         im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
         img_arg_url= "." + url_for('static', filename="uploads/" + request.form['image']).rsplit('.', 1)[0] + "_sobelx." + request.form['image'].rsplit('.', 1)[1]
         im_sobelx = cv2.Sobel(im_gray, cv2.CV_32F, 1, 0, ksize=3)
         cv2.imwrite(img_arg_url,im_sobelx)
-        return render_template('augmentation.html', img_arg_url=img_arg_url)
 
     if request.form['button_name'] == "Canny":
         im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
@@ -91,7 +88,8 @@ def augmentation_augmentation():
         im_noise[coords[:-1]] = (0,0,0)
         img_arg_url= "." + url_for('static', filename="uploads/" + request.form['image']).rsplit('.', 1)[0] + "_noise." + request.form['image'].rsplit('.', 1)[1]
         cv2.imwrite(img_arg_url,im_noise)
-    return render_template('augmentation.html', img_arg_url=img_arg_url)
+
+    return render_template('augmentation.html', img_arg_url=img_arg_url, img_name = request.form['image'])
 
 
 ############### YOLOのページ#############################

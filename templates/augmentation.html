@@ -125,61 +125,112 @@
 
 <p class="text-sm-left bg-dark text-white"><font size="5">　Let's try</font></p>
 
-<form method="post" action="/augmentation_send" enctype="multipart/form-data">
+<form method="post" action="/augmentation_send" enctype="multipart/form-data" >
 <input type="file" id="img_file" name="img_file" class="col-sm-4">
-<input type="submit" value="upload" class="btn">
+<input type="submit" value="UPLOAD" class="btn btn-primary btn-lg" >
 </form>
 
+<div class="btn-group btn-group-lg" role="group" aria-label="Basic example"  style="margin-left:20%">
+<div style="margin-top:10px; margin-right:5px; margin-left:10px">
+  <form method="post" action="/augmentation_augmentation">
+    <input type="hidden" name="button_name" value="Gray">
+    <button type="submit" name = "image" value="{{ img_name }}" class="btn btn-secondary btn-lg">Gray</button>
+  </form>
+</div>
+
+<div style="margin-top:10px ;margin-right:5px">
+  <form method="post" action="/augmentation_augmentation">
+    <input type="hidden" name="button_name" value="Sobel_y">
+    <button type="submit" name = "image" value="{{ img_name }}" class="btn btn-secondary btn-lg">Sobel_y</button>
+  </form>
+</div>
+
+<div style="margin-top:10px ;margin-right:5px">
+  <form method="post" action="/augmentation_augmentation">
+  <input type="hidden" name="button_name" value="Sobel_x">
+  <button type="submit" name = "image" value="{{ img_name }}" class="btn btn-secondary btn-lg">Sobel_x</button>
+  </form>
+</div>
+
+<div style="margin-top:10px ;margin-right:5px">
+  <form method="post" action="/augmentation_augmentation">
+  <input type="hidden" name="button_name" value="Canny">
+  <button type="submit" name = "image" value="{{ img_name }}" class="btn btn-secondary btn-lg">Canny</button>
+  </form>
+</div>
+
+<div style="margin-top:10px ;margin-right:5px">
+  <form method="post" action="/augmentation_augmentation">
+  <input type="hidden" name="button_name" value="Rotation">
+  <button type="submit" name = "image" value="{{ img_name }}" class="btn btn-secondary btn-lg">Rotation</button>
+  </form>
+</div>
+
+<div style="margin-top:10px ;margin-right:5px">
+  <form method="post" action="/augmentation_augmentation">
+  <input type="hidden" name="button_name" value="Flip">
+  <button type="submit" name = "image" value="{{ img_name }}" class="btn btn-secondary btn-lg">Flip</button>
+  </form>
+</div>
+
+<div style="margin-top:10px ;margin-right:5px">
+  <form method="post" action="/augmentation_augmentation">
+  <input type="hidden" name="button_name" value="Noise">
+  <button type="submit" name = "image" value="{{ img_name }}" class="btn btn-secondary btn-lg">Add noise</button>
+  </form>
+</div>
+</div>
+
+<br></br>
+
+<style>
+    .imagePreview {
+        width: 80%;
+        height: 200px;
+        background-position: center center;
+        background-size: cover;
+        -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, .3);
+        display: inline-block;
+    }
+</style>
 
 {% if warning %}
 <div class="alert alert-warning" role="alert">
-  <strong>Warning!</strong> 許可されていない拡張子、もしくはファイルが指定されてません
+<strong>Warning!</strong> 許可されていない拡張子、もしくはファイルが指定されてません
 </div>
-    {% endif %}
+ {% endif %}
 
-{% if img_name %}
-<p><img src="{{url_for('static', filename= "uploads/" + img_name)}}" height="150" ></p>
+<div class="container">
+<div class="row">
+  <div class="col-6">
+    <div class="imagePreview" style="margin-left:10%">
+    {% if img_name%}
+    <p><img src="{{url_for('static', filename= "uploads/" + img_name)}}" height="150" align="middle" ></p>
+     {% endif %}
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="imagePreview" style="margin-left:10%">
+    {% if img_arg_url %}
+    <p><img src="{{ img_arg_url }}" height="150"  align="middle"></p>
+     {% endif %}
+    </div>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-6 text-center">
+    <p class="font-weight-bold" ><font size="5" font color= "#000000">Origin</font></p>
+  </div>
+  <div class="col-6 text-center">
+    <p class="font-weight-bold" ><font size="5" font color= "#000000">After Augmentation</font></p>
+  </div>
+</div>
+
+<br></br>
 
 
-<form method="post" action="/augmentation_augmentation">
-<input type="hidden" name="button_name" value="Gray">
-<button type="submit" name = "image" value="{{ img_name }}">Gray</button>
-</form>
 
-<form method="post" action="/augmentation_augmentation">
-<input type="hidden" name="button_name" value="Sobel_y">
-<button type="submit" name = "image" value="{{ img_name }}">Sobel_y</button>
-</form>
-
-<form method="post" action="/augmentation_augmentation">
-<input type="hidden" name="button_name" value="Sobel_x">
-<button type="submit" name = "image" value="{{ img_name }}">Sobel_x</button>
-</form>
-
-<form method="post" action="/augmentation_augmentation">
-<input type="hidden" name="button_name" value="Canny">
-<button type="submit" name = "image" value="{{ img_name }}">Canny</button>
-</form>
-
-<form method="post" action="/augmentation_augmentation">
-<input type="hidden" name="button_name" value="Rotation">
-<button type="submit" name = "image" value="{{ img_name }}">Rotation</button>
-</form>
-
-<form method="post" action="/augmentation_augmentation">
-<input type="hidden" name="button_name" value="Flip">
-<button type="submit" name = "image" value="{{ img_name }}">Flip</button>
-</form>
-
-<form method="post" action="/augmentation_augmentation">
-<input type="hidden" name="button_name" value="Noise">
-<button type="submit" name = "image" value="{{ img_name }}">Add noise</button>
-</form>
-    {% endif %}
-
-{% if img_arg_url %}
-<p><img src="{{ img_arg_url }}" height="150"></p>
-    {% endif %}
 
     <!-- Bootstrap core JavaScript -->
     <script src="static/vendor/jquery/jquery.min.js"></script>
