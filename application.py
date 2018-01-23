@@ -114,7 +114,7 @@ def yolo_send():
 def yolo_detectio():
     image_url = url_for('static', filename= "uploads/" + request.form['image'])
     yolo_url = yolo_detect(image_url)
-    return render_template('yolo.html', yolo_url=yolo_url)
+    return render_template('yolo.html', yolo_url=yolo_url, img_name = request.form['image'])
 
 ############### Mask_RCNNのページ#############################
 @app.route('/mask_rcnn_initial')
@@ -138,7 +138,7 @@ def mask_rcnn__send():
 def mask_rcnn_detectio():
     image_url = url_for('static', filename= "uploads/" + request.form['image'])
     mask_rcnn_url = mask_rcnn_detect(image_url)
-    return render_template('mask_rcnn.html', mask_rcnn_url=mask_rcnn_url)
+    return render_template('mask_rcnn.html', mask_rcnn_url=mask_rcnn_url, img_name = request.form['image'])
 
 
 if __name__ == '__main__':
