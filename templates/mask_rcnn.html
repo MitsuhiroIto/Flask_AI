@@ -1,95 +1,100 @@
+{% extends "base.html" %}
+{% block body %}
 
-<!DOCTYPE html>
-<html lang="ja">
+<h1 class="text-center">Mask-RCNN DETECTION</h1>
+<p class="text-sm-left bg-dark text-white"><font size="5">　Samples</font></p>
 
-  <head>
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <img src="{{url_for('static', filename= "img/hito2.jpeg")}}" height="150" >
+    </div>
+    <div class="col-3">
+      <img src="{{url_for('static', filename= "img/hito2_mask.png")}}" height="150" >
+    </div>
+    <div class="col-3">
+      <img src="{{url_for('static', filename= "img/home1.jpeg")}}" height="150" >
+    </div>
+    <div class="col-3">
+      <img src="{{url_for('static', filename= "img/home1_mask.png")}}" height="150" >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 text-center">
+      <p class="font-weight-bold" ><font size="5" font color= "#000000">Origin</font></p>
+    </div>
+    <div class="col-3 text-center">
+      <p class="font-weight-bold" ><font size="5" font color= "#000000">After</font></p>
+    </div>
+    <div class="col-3 text-center">
+      <p class="font-weight-bold" ><font size="5" font color= "#000000">Origin</font></p>
+    </div>
+    <div class="col-3 text-center">
+      <p class="font-weight-bold" ><font size="5" font color= "#000000">After</font></p>
+    </div>
+  </div>
+</div>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<p class="text-sm-left bg-dark text-white"><font size="5">　Let's try</font></p>
 
-    <title>Mask-RCNN</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
-    <link href="static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="static/vendor/devicons/css/devicons.min.css" rel="stylesheet">
-    <link href="static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="static/css/resume.min.css" rel="stylesheet">
-
-  </head>
-
-  <body id="page-top">
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none"></span>
-        <span class="d-none d-lg-block">
-          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="static/img/profile.jpg" alt="">
-        </span>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/">About This page</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/augmentation_initial">For Data Augmentation</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="yolo_initial">YOLO</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="mask_rcnn_initial">Mask-RCNN</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#interests">Camera</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-
-<form method="post" action="/mask_rcnn_send" enctype="multipart/form-data">
-<input type="file" id="img_file" name="img_file" class="col-sm-4">
-<input type="submit" value="upload" class="btn">
+<form method="post" action="/mask_rcnn_send" enctype="multipart/form-data" >
+  <input type="file" id="img_file" name="img_file" class="col-sm-4">
+  <input type="submit" value="UPLOAD" class="btn btn-primary btn-lg" >
 </form>
+
+<div style="margin-top:10px; margin-right:5px; margin-left:63%; margin-bottom:10px">
+  <form method="post" action="/mask_rcnn_detection">
+    <button type="submit" name = "image" value="{{ img_name }}" class="btn btn-secondary btn-lg">Mask-RCNN Detection</button>
+  </form>
+</div>
+
+<style>
+    .imagePreview {
+        width: 80%;
+        height: 200px;
+        background-position: center center;
+        background-size: cover;
+        -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, .3);
+        display: inline-block;
+    }
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="imagePreview" style="margin-left:10%">
+        {% if img_name%}
+        <p><img src="{{url_for('static', filename= "uploads/" + img_name)}}" height="150" align="middle" ></p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="imagePreview" style="margin-left:10%">
+        {% if mask_rcnn_url %}
+        <p><img src="{{ mask_rcnn_url }}" height="150"  align="middle"></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-6 text-center">
+      <p class="font-weight-bold" ><font size="5" font color= "#000000">Origin</font></p>
+    </div>
+    <div class="col-6 text-center">
+      <p class="font-weight-bold" ><font size="5" font color= "#000000">After Detection</font></p>
+    </div>
+  </div>
+</div>
 
 {% if warning %}
 <div class="alert alert-warning" role="alert">
   <strong>Warning!</strong> 許可されていない拡張子、もしくはファイルが指定されてません
 </div>
-    {% endif %}
+{% endif %}
 
-{% if img_name %}
-<p><img src="{{url_for('static', filename= "uploads/" + img_name)}}" height="150" ></p>
-<form method="post" action="/mask_rcnn_detection">
-<button type="submit" name = "image" value="{{ img_name }}">Mask-RCNN detection</button>
-    {% endif %}
+<br></br>
 
-
-{% if mask_rcnn_url %}
-<p><img src="{{ mask_rcnn_url }}" height="150"></p>
-    {% endif %}
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="static/vendor/jquery/jquery.min.js"></script>
-    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-
-  </body>
-
-</html>
+{% endblock %}

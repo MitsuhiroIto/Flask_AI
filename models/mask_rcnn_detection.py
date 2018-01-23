@@ -23,7 +23,6 @@ class InferenceConfig(models.Mask_RCNN.coco.CocoConfig):
 
 def mask_rcnn_detect(image_url):
     image_url = image_url
-    print(image_url)
 
     class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
                    'bus', 'train', 'truck', 'boat', 'traffic light',

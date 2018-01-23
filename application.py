@@ -140,7 +140,6 @@ def mask_rcnn_detectio():
     mask_rcnn_url = mask_rcnn_detect(image_url)
     return render_template('mask_rcnn.html', mask_rcnn_url=mask_rcnn_url, img_name = request.form['image'])
 
-
 if __name__ == '__main__':
     app.debug = True
     app.run()
