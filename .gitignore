@@ -2,15 +2,9 @@
 .python-version
 *.ipynb_checkpoints
 *.pyc
-#data/
-npy/
-detect/
 memo/
-#log/
-#model/
-data/4type/
-uploads/
 static/uploads/*
+!.gitkeep
 memo/
 models/YAD2K
 models/Mask_RCNN
